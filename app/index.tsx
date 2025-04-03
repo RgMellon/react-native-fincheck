@@ -1,13 +1,14 @@
+import { useAuth } from "@/src/hooks/useAuth";
 import "../global.css";
 
 import { Redirect } from "expo-router";
 
 export default function Index() {
-  const isAuth = true;
-
-  if (isAuth) {
-    return <Redirect href="/auth/sign-in" />;
+  const { signedIn } = useAuth();
+  console.log(signedIn, "signedIn");
+  if (signedIn) {
+    return <Redirect href="/dashboard" />;
   }
 
-  //   return <Redirect href="//sign-in" />;
+  return <Redirect href="/auth/sign-in" />;
 }

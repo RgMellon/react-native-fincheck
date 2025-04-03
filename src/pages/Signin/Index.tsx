@@ -15,7 +15,7 @@ import { Button } from "../../components/Button";
 import { useSigninController } from "./useSigninController";
 import { Controller } from "react-hook-form";
 
-export function SignInPage() {
+export default function SignInPage() {
   const { handleSubmit, errors, control } = useSigninController();
 
   return (

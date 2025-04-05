@@ -17,7 +17,7 @@ export function Accounts() {
   const { accounts, currentBalance, isLoading } = useAccountController();
 
   return (
-    <View className="bg-teal-900 rounded-2xl w-full h-[420px] md:p-10 px-8 py-8 flex flex-col">
+    <View className="bg-teal-900 rounded-2xl w-full h-[420px] px-8 py-8 flex">
       {isLoading && (
         <View className="flex justify-center items-center w-full h-full">
           <ActivityIndicator size={"small"} color={"#fafafa"} />

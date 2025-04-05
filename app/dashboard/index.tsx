@@ -1,5 +1,5 @@
-import { Text } from "react-native";
+import { Dashboard } from "@/src/pages/Dashboard";
 
 export default function DashBoard() {
-  return <Text style={{ marginTop: 100 }}> sou o dash</Text>;
+  return <Dashboard />;
 }

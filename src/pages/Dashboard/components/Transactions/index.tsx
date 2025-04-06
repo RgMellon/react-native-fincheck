@@ -84,7 +84,7 @@ export function Transactions() {
           {hasTransactions && !isLoading && (
             <FlatList
               data={transactions}
-              keyExtractor={(item) => item.toString()}
+              keyExtractor={(item) => item.id.toString()}
               renderItem={({ item }) => (
                 <TouchableOpacity
                   role="button"
@@ -92,7 +92,10 @@ export function Transactions() {
                   className="bg-white mt-4 flex-row p-4 rounded-2xl flex items-center justify-between gap-4"
                 >
                   <View className="flex flex-row  items-center gap-3">
-                    <CategoryIcon type="income" category="food" />
+                    <CategoryIcon
+                      type={item.type === "EXPENSE" ? "expense" : "income"}
+                      category={item.category?.icon}
+                    />
 
                     <View>
                       <Text className="font-bold tracking-[-0.5px] block">

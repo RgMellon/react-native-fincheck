@@ -17,24 +17,22 @@ export function Dashboard() {
   };
 
   return (
-    <DashBoardProvider>
-      <View className="relative flex-1">
-        <FlatList
-          data={sections}
-          keyExtractor={(item) => item}
-          renderItem={renderItem}
-          contentContainerStyle={{
-            padding: 0,
-            paddingBottom: 100,
-            marginTop: 16,
-          }}
-          showsVerticalScrollIndicator={false}
-        />
+    <View className="relative flex-1">
+      <FlatList
+        data={sections}
+        keyExtractor={(item) => item}
+        renderItem={renderItem}
+        contentContainerStyle={{
+          padding: 0,
+          paddingBottom: 100,
+          marginTop: 16,
+        }}
+        showsVerticalScrollIndicator={false}
+      />
 
-        <MenuModal />
+      <MenuModal />
 
-        <FavIcon />
-      </View>
-    </DashBoardProvider>
+      <FavIcon />
+    </View>
   );
 }

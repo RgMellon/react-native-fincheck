@@ -1,4 +1,4 @@
-import { Slot } from "expo-router";
+import { Slot, Stack } from "expo-router";
 import { Image, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import headerLogo from "../../src/assets/icons/header-logo.png";
@@ -13,7 +13,26 @@ export default function DashboardLayout() {
         </View>
       </View>
 
-      <Slot />
+      <Stack
+        screenOptions={{
+          headerShown: false,
+          contentStyle: {
+            backgroundColor: "#fff",
+          },
+          animation: "fade_from_bottom",
+        }}
+      >
+        <Stack.Screen name="index" />
+        <Stack.Screen
+          name="transaction"
+          options={{
+            headerTransparent: true,
+            presentation: "containedTransparentModal",
+            headerShown: true,
+            animation: "fade_from_bottom",
+          }}
+        />
+      </Stack>
     </SafeAreaView>
   );
 }

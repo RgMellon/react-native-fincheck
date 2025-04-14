@@ -13,8 +13,8 @@ interface DashBoardContextValue {
   //   openNewAccountModal(): void;
   //   isNewTransactionModalOpen: boolean;
   //   closeNewTransactionModal(): void;
-  //   openNewTransactionModal(type: "INCOME" | "EXPENSE"): void;
-  //   newTransactionType: "INCOME" | "EXPENSE" | null;
+  openNewTransactionModal(type: "INCOME" | "EXPENSE"): void;
+  newTransactionType: "INCOME" | "EXPENSE" | null;
 
   //   openEditModalBankAccount(bankAccount: BankAccount): void;
   //   isEditModalBankAccountOpen: boolean;
@@ -26,6 +26,9 @@ export const DashboardContext = createContext({} as DashBoardContextValue);
 export function DashBoardProvider({ children }: { children: React.ReactNode }) {
   const [areValueVisibility, setAreValueVisibility] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [newTransactionType, setNewTransactionType] = useState<
+    "INCOME" | "EXPENSE" | null
+  >(null);
 
   const openMenu = useCallback(() => {
     setIsMenuOpen(true);
@@ -39,6 +42,11 @@ export function DashBoardProvider({ children }: { children: React.ReactNode }) {
     setAreValueVisibility((prevState) => !prevState);
   }
 
+  const openNewTransactionModal = useCallback((type: "INCOME" | "EXPENSE") => {
+    setNewTransactionType(type);
+    // setIsNewTransactionModalOpen(true);
+  }, []);
+
   return (
     <DashboardContext.Provider
       value={{
@@ -47,6 +55,8 @@ export function DashBoardProvider({ children }: { children: React.ReactNode }) {
         closeMenu,
         toggleValueVisibility,
         isMenuOpen,
+        openNewTransactionModal,
+        newTransactionType,
       }}
     >
       {children}

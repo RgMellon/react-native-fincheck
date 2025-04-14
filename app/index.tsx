@@ -5,7 +5,6 @@ import { Redirect } from "expo-router";
 
 export default function Index() {
   const { signedIn } = useAuth();
-  console.log(signedIn, "signedIn");
   if (signedIn) {
     return <Redirect href="/dashboard" />;
   }

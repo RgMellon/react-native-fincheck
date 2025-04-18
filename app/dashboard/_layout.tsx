@@ -2,6 +2,7 @@ import { Slot, Stack } from "expo-router";
 import { Image, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import headerLogo from "../../src/assets/icons/header-logo.png";
+import { useDashboard } from "@/src/pages/Dashboard/useDashboard";
 
 export default function DashboardLayout() {
   return (
@@ -26,9 +27,7 @@ export default function DashboardLayout() {
         <Stack.Screen
           name="transaction"
           options={{
-            headerTransparent: true,
             presentation: "containedTransparentModal",
-            headerShown: true,
             animation: "fade_from_bottom",
           }}
         />

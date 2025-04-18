@@ -5,7 +5,7 @@ export interface Transaction {
   date: string;
   bankAccountId: string;
   categoryId: string;
-  type?: "INCOME" | "EXPENSE";
+  type?: "INCOME" | "EXPENSIVE";
   category?: {
     id: string;
     icon: string;

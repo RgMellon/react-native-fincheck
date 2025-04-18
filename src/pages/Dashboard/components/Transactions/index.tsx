@@ -93,7 +93,7 @@ export function Transactions() {
                 >
                   <View className="flex flex-row  items-center gap-3">
                     <CategoryIcon
-                      type={item.type === "EXPENSE" ? "expense" : "income"}
+                      type={item.type === "INCOME" ? "income" : "expense"}
                       category={item.category?.icon}
                     />
 
@@ -111,13 +111,11 @@ export function Transactions() {
                     className={cn(
                       "tracking-[0.5px] font-medium",
                       !areValueVisibility && "blur-sm",
-                      item.type === "EXPENSE"
-                        ? "text-red-800"
-                        : "text-green-800"
+                      item.type === "INCOME" ? "text-green-800" : "text-red-800"
                     )}
                   >
-                    {item.type === "EXPENSE" ? "-" : "+"}
-                    {formatCurrency(Number(100))}
+                    {item.type === "INCOME" ? "+" : "-"}
+                    {formatCurrency(Number(item.value))}
                   </Text>
                 </TouchableOpacity>
               )}

@@ -6,16 +6,20 @@ import { forwardRef } from "react";
 type InputProps = {
   label: string;
   error?: string;
+  value?: string;
+  onChangeText?: (text: string) => void;
 } & TextInputProps;
 
 export const Input = forwardRef<TextInput, InputProps>(
-  ({ label, error, ...props }: InputProps, ref) => {
+  ({ label, error, value, onChangeText, ...props }: InputProps, ref) => {
     return (
       <View>
         <TextInput
           ref={ref}
+          value={value}
           placeholder={label}
           placeholderTextColor="#495057"
+          onChangeText={onChangeText}
           className={cn(
             "bg-white rounded-lg border border-gray-500 px-3 h-[52px] text-gray-800 w-full pt-4 peer outline-none placeholder-shown:pt-0 focus:border-gray-600",
             error && "!border-red-900"

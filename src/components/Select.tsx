@@ -99,7 +99,7 @@ export function Select({ error, label, options, onChange }: SelectProps) {
                     type={
                       newTransactionType === "EXPENSE" ? "expense" : "income"
                     }
-                    category={item.icon}
+                    category={item?.icon}
                   />
                   <Text> {item.label}</Text>
                 </TouchableOpacity>

@@ -3,7 +3,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useMemo } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { useDashboard } from "../Dashboard/useDashboard";
+import { useDashboard } from "../../../useDashboard";
 import { useBankAccounts } from "@/src/hooks/useBankAccount";
 import { parse, isValid } from "date-fns";
 import { formateDateBeforeSend } from "@/src/utils/formatDateBeforeSend";
@@ -12,10 +12,9 @@ import { transactionsService } from "@/src/services/transactionService";
 import { currencyStringToNumber } from "@/src/utils/currencyStringToNumber";
 import { TransactionsParam } from "@/src/services/transactionService/create";
 import { showMessage } from "react-native-flash-message";
-import { useNavigation } from "@react-navigation/native";
 
 export function useNewTransactionModalController() {
-  const { goBack } = useNavigation();
+  const { closeNewTransactionModal } = useDashboard();
   const queryClient = useQueryClient();
   const { categories: categorisList, fetchingCategories } = useCategories();
   const { accounts, isFetching: fetchingBankAccounts } = useBankAccounts();
@@ -85,13 +84,14 @@ export function useNewTransactionModalController() {
       await mutateAsync(payload);
 
       queryClient.invalidateQueries({ queryKey: ["transactions"] });
+      queryClient.invalidateQueries({ queryKey: ["bankAccounts"] });
 
+      closeNewTransactionModal();
       showMessage({
         message: "Sucesso!",
         description: "Transação adicionada 👌",
         type: "success",
       });
-      goBack();
     } catch (err) {
       showMessage({
         message: "Erro",

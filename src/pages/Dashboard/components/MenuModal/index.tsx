@@ -1,14 +1,7 @@
 import { AccountIcon } from "@/src/assets/icons/AccountIcon";
 import { CategoryIcon } from "@/src/assets/icons/CategoryIcon";
 import { BlurView } from "expo-blur";
-import {
-  Modal,
-  Pressable,
-  Text,
-  TouchableOpacity,
-  TouchableWithoutFeedback,
-  View,
-} from "react-native";
+import { Modal, Pressable, Text, TouchableOpacity, View } from "react-native";
 import { useDashboard } from "../../useDashboard";
 import { router } from "expo-router";
 
@@ -18,7 +11,6 @@ export function MenuModal() {
   function handleOpen(type: "INCOME" | "EXPENSE") {
     openNewTransactionModal(type);
     closeMenu();
-    router.push("/dashboard/modal/transaction");
   }
 
   return (

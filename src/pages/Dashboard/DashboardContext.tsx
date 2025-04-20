@@ -11,8 +11,8 @@ interface DashBoardContextValue {
   //   isNewAccountModalOpen: boolean;
   //   closeNewAccountModal(): void;
   //   openNewAccountModal(): void;
-  //   isNewTransactionModalOpen: boolean;
-  //   closeNewTransactionModal(): void;
+  isNewTransactionModalOpen: boolean;
+  closeNewTransactionModal(): void;
   openNewTransactionModal(type: "INCOME" | "EXPENSE"): void;
   newTransactionType: "INCOME" | "EXPENSE" | null;
 
@@ -24,6 +24,8 @@ interface DashBoardContextValue {
 export const DashboardContext = createContext({} as DashBoardContextValue);
 
 export function DashBoardProvider({ children }: { children: React.ReactNode }) {
+  const [isNewTransactionModalOpen, setIsNewTransactionModalOpen] =
+    useState(false);
   const [areValueVisibility, setAreValueVisibility] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [newTransactionType, setNewTransactionType] = useState<
@@ -44,7 +46,12 @@ export function DashBoardProvider({ children }: { children: React.ReactNode }) {
 
   const openNewTransactionModal = useCallback((type: "INCOME" | "EXPENSE") => {
     setNewTransactionType(type);
-    // setIsNewTransactionModalOpen(true);
+    setIsNewTransactionModalOpen(true);
+  }, []);
+
+  const closeNewTransactionModal = useCallback(() => {
+    setNewTransactionType(null);
+    setIsNewTransactionModalOpen(false);
   }, []);
 
   return (
@@ -57,6 +64,8 @@ export function DashBoardProvider({ children }: { children: React.ReactNode }) {
         isMenuOpen,
         openNewTransactionModal,
         newTransactionType,
+        closeNewTransactionModal,
+        isNewTransactionModalOpen,
       }}
     >
       {children}

@@ -10,12 +10,15 @@ type ButtonProps = {
   disable: boolean;
   label: string;
   isLoading?: boolean;
+  variant?: "danger" | "ghost";
 } & TouchableOpacityProps;
 
 export function Button({
   disable,
   label,
+  className,
   isLoading = false,
+  variant,
   ...props
 }: ButtonProps) {
   return (
@@ -23,12 +26,19 @@ export function Button({
       disabled={disable}
       activeOpacity={0.8}
       className={cn(
-        " w-full px-6 h-12 rounded-2xl flex items-center justify-center",
-        !disable ? "bg-teal-900" : "bg-gray-300"
+        `bg-teal-900 disabled:bg-transparent 
+          px-6 h-12 rounded-2xl disabled:text-gray-400 flex items-center justify-center`,
+        variant === "danger" && "bg-red-900",
+        variant === "ghost" && "bg-transparent border border-gray-800 "
       )}
       {...props}
     >
-      <Text className="font-medium text-white">
+      <Text
+        className={cn(
+          "font-medium text-white",
+          variant === "ghost" && "text-gray-800"
+        )}
+      >
         {isLoading ? <ActivityIndicator size={"small"} /> : label}
       </Text>
     </TouchableOpacity>

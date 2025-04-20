@@ -4,6 +4,8 @@ import { Transactions } from "./components/Transactions";
 import { DashBoardProvider } from "./DashboardContext";
 import { MenuModal } from "./components/MenuModal";
 import { FavIcon } from "./components/FavIcon";
+import { Header } from "@/src/components/Header";
+import { TransactionModal } from "./components/modals/TransactionModal";
 
 type SectionType = "accounts" | "transactions";
 
@@ -17,22 +19,26 @@ export function Dashboard() {
   };
 
   return (
-    <View className="relative flex-1">
-      <FlatList
-        data={sections}
-        keyExtractor={(item) => item}
-        renderItem={renderItem}
-        contentContainerStyle={{
-          padding: 0,
-          paddingBottom: 100,
-          marginTop: 16,
-        }}
-        showsVerticalScrollIndicator={false}
-      />
+    <>
+      <Header />
+      <View className="relative flex-1">
+        <FlatList
+          data={sections}
+          keyExtractor={(item) => item}
+          renderItem={renderItem}
+          contentContainerStyle={{
+            padding: 0,
+            paddingBottom: 100,
+            marginTop: 16,
+          }}
+          showsVerticalScrollIndicator={false}
+        />
 
-      <MenuModal />
+        <TransactionModal />
+        <MenuModal />
 
-      <FavIcon />
-    </View>
+        <FavIcon />
+      </View>
+    </>
   );
 }

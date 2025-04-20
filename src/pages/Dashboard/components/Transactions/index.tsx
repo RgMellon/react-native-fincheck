@@ -4,7 +4,6 @@ import {
   FlatList,
   Image,
   Text,
-  Touchable,
   TouchableOpacity,
   View,
 } from "react-native";
@@ -15,6 +14,8 @@ import { CategoryIcon } from "@/src/assets/icons/CategoryIcon";
 import { useTransactionsController } from "./useTransactionController";
 import emptyImage from "@/src/assets/empty.png";
 import { formateDate } from "@/src/utils/formatDate";
+import { SwipeableAction } from "@/src/components/SwipeableAction";
+import Ionicons from "@expo/vector-icons/Ionicons";
 
 const ITEM_WIDTH = 70;
 
@@ -27,6 +28,8 @@ export function Transactions() {
     transactions,
     isInitialLoading,
     isLoading,
+    handleOpenDialog,
+    loadDelete,
   } = useTransactionsController();
 
   const hasTransactions = transactions.length > 0;
@@ -86,38 +89,58 @@ export function Transactions() {
               data={transactions}
               keyExtractor={(item) => item.id.toString()}
               renderItem={({ item }) => (
-                <TouchableOpacity
-                  role="button"
-                  onPress={() => {}}
-                  className="bg-white mt-4 flex-row p-4 rounded-2xl flex items-center justify-between gap-4"
-                >
-                  <View className="flex flex-row  items-center gap-3">
-                    <CategoryIcon
-                      type={item.type === "INCOME" ? "income" : "expense"}
-                      category={item.category?.icon}
-                    />
-
-                    <View>
-                      <Text className="font-bold tracking-[-0.5px] block">
-                        {item.name}
-                      </Text>
-                      <Text className="text-sm font-light text-gray-600 tracking-[-0.5px]">
-                        {formateDate(new Date(item.date))}
-                      </Text>
+                <SwipeableAction
+                  handleSwipe={() => {}}
+                  leftAction={
+                    <View className="w-[80px] flex-row mt-4 p-2">
+                      <TouchableOpacity
+                        onPress={() => handleOpenDialog(item.id)}
+                        className="w-full h-full bg-red-100 rounded-md  justify-center items-center"
+                      >
+                        {!loadDelete ? (
+                          <Ionicons
+                            name="trash-bin"
+                            size={15}
+                            color={"#f03e3e"}
+                          />
+                        ) : (
+                          <ActivityIndicator size={"small"} color={"#f03e3e"} />
+                        )}
+                      </TouchableOpacity>
                     </View>
-                  </View>
+                  }
+                >
+                  <View className="bg-white mt-4 flex-row p-4 rounded-2xl flex items-center justify-between gap-4">
+                    <View className="flex flex-row  items-center gap-3">
+                      <CategoryIcon
+                        type={item.type === "INCOME" ? "income" : "expense"}
+                        category={item.category?.icon}
+                      />
 
-                  <Text
-                    className={cn(
-                      "tracking-[0.5px] font-medium",
-                      !areValueVisibility && "blur-sm",
-                      item.type === "INCOME" ? "text-green-800" : "text-red-800"
-                    )}
-                  >
-                    {item.type === "INCOME" ? "+" : "-"}
-                    {formatCurrency(Number(item.value))}
-                  </Text>
-                </TouchableOpacity>
+                      <View>
+                        <Text className="font-bold tracking-[-0.5px] block">
+                          {item.name}
+                        </Text>
+                        <Text className="text-sm font-light text-gray-600 tracking-[-0.5px]">
+                          {formateDate(new Date(item.date))}
+                        </Text>
+                      </View>
+                    </View>
+
+                    <Text
+                      className={cn(
+                        "tracking-[0.5px] font-medium",
+                        !areValueVisibility && "blur-sm",
+                        item.type === "INCOME"
+                          ? "text-green-800"
+                          : "text-red-800"
+                      )}
+                    >
+                      {item.type === "INCOME" ? "+" : "-"}
+                      {formatCurrency(Number(item.value))}
+                    </Text>
+                  </View>
+                </SwipeableAction>
               )}
             />
           )}

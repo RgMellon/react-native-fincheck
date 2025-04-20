@@ -3,6 +3,7 @@ import {
   Keyboard,
   KeyboardAvoidingView,
   Platform,
+  Pressable,
   ScrollView,
   Text,
   TouchableWithoutFeedback,
@@ -15,8 +16,10 @@ import { Input } from "@/src/components/Input";
 import { Select } from "@/src/components/Select";
 import { format } from "date-fns";
 import { maskDate } from "@/src/utils/maskDate";
+import { BlurView } from "expo-blur";
+import { useDashboard } from "../../../useDashboard";
 
-export function NewTransactionModal() {
+export function TransactionModalContent() {
   const {
     control,
     handleSubmit,
@@ -27,25 +30,32 @@ export function NewTransactionModal() {
     accounts,
     isPending,
   } = useNewTransactionModalController();
+  const { closeNewTransactionModal } = useDashboard();
 
   return (
     <KeyboardAvoidingView
-      style={{ flex: 1 }}
+      style={{ height: "100%" }}
       behavior={Platform.OS === "ios" ? "padding" : "height"}
     >
       <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
         <ScrollView
           contentContainerStyle={{
             flexGrow: 1,
-            justifyContent: "center",
-            alignItems: "center",
-            padding: 16,
           }}
         >
-          <View className="w-full">
+          <Pressable
+            className="absolute top-0 bottom-0 left-0 right-0 z-0"
+            onPress={closeNewTransactionModal}
+          >
+            <BlurView
+              intensity={20}
+              tint="dark"
+              className="absolute top-0 bottom-0 left-0 right-0"
+            />
+          </Pressable>
+          <View className="w-full bg-slate-50 p-4 absolute bottom-10 rounded-lg pb-4">
             <Text className="text-lg text-center font-bold">
-              {" "}
-              Novas despesas{" "}
+              Novas despesas
             </Text>
 
             <View className="mt-10 items-center">
@@ -151,7 +161,7 @@ export function NewTransactionModal() {
               <View className="w-full mt-10">
                 <Button
                   isLoading={isPending}
-                  label="Entrar"
+                  label="Salvar"
                   disable={Object.keys(errors).length > 0}
                   onPress={handleSubmit}
                 />

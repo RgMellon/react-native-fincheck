@@ -16,7 +16,8 @@ import { useSigninController } from "./useSigninController";
 import { Controller } from "react-hook-form";
 
 export default function SignInPage() {
-  const { handleSubmit, errors, control } = useSigninController();
+  const { handleSubmit, errors, control, isButtonLoading } =
+    useSigninController();
 
   return (
     <KeyboardAvoidingView
@@ -55,6 +56,7 @@ export default function SignInPage() {
                 return (
                   <Input
                     keyboardType="email-address"
+                    autoCapitalize="none"
                     label="Email"
                     error={errors.email?.message}
                     onChangeText={onChange}
@@ -81,6 +83,7 @@ export default function SignInPage() {
             />
 
             <Button
+              isLoading={isButtonLoading}
               label="Entrar"
               disable={Object.keys(errors).length > 0}
               onPress={handleSubmit}

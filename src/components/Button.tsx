@@ -26,7 +26,7 @@ export function Button({
       disabled={disable}
       activeOpacity={0.8}
       className={cn(
-        `bg-teal-900 disabled:bg-transparent 
+        `bg-teal-900 disabled:bg-slate-400 
           px-6 h-12 rounded-2xl disabled:text-gray-400 flex items-center justify-center`,
         variant === "danger" && "bg-red-900",
         variant === "ghost" && "bg-transparent border border-gray-800 "

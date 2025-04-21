@@ -41,9 +41,7 @@ export function useSigninController() {
 
   const handleSubmit = hookHandleSubmit(async (data) => {
     try {
-      console.log(data);
       const response = await mutateAsync(data);
-      console.log(response.data.accesToken, "respo");
       signin(response.data.accesToken);
     } catch (err) {
       console.log(err);

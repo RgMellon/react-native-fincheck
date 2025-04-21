@@ -22,10 +22,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     async function checkSignInStatus() {
       try {
         const token = await AsyncStorage.getItem(localStorageKeys.ACCESS_TOKEN);
-
         setSignedIn(!!token);
       } catch (err) {
-        console.log(err);
+        console.log(err, "err");
       }
     }
 
@@ -40,19 +39,20 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   });
 
   const signin = useCallback(async (accessToken: string) => {
-    setSignedIn(true);
-
     await AsyncStorage.setItem(localStorageKeys.ACCESS_TOKEN, accessToken);
+    setSignedIn(true);
   }, []);
 
   const signOut = useCallback(async () => {
-    await Storage.removeItem({ key: localStorageKeys.ACCESS_TOKEN });
+    await AsyncStorage.removeItem(localStorageKeys.ACCESS_TOKEN);
     queryClient.removeQueries({ queryKey: ["user", "me"] });
     setSignedIn(false);
   }, [queryClient]);
 
   useEffect(() => {
-    signOut();
+    if (isError && error) {
+      signOut();
+    }
   }, [isError, error]);
 
   if (isFetching) {

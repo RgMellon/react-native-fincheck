@@ -3,7 +3,6 @@ import { CategoryIcon } from "@/src/assets/icons/CategoryIcon";
 import { BlurView } from "expo-blur";
 import { Modal, Pressable, Text, TouchableOpacity, View } from "react-native";
 import { useDashboard } from "../../useDashboard";
-import { router } from "expo-router";
 
 export function MenuModal() {
   const { isMenuOpen, closeMenu, openNewTransactionModal } = useDashboard();
@@ -38,7 +37,12 @@ export function MenuModal() {
             <Text> Nova Despesa</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity className="w-full flex-row items-center p-4 gap-4">
+          <TouchableOpacity
+            onPress={() => {
+              handleOpen("INCOME");
+            }}
+            className="w-full flex-row items-center p-4 gap-4"
+          >
             <CategoryIcon type="income" />
             <Text> Nova Receita</Text>
           </TouchableOpacity>

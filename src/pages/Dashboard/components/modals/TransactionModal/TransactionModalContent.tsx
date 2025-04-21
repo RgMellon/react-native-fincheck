@@ -30,7 +30,7 @@ export function TransactionModalContent() {
     accounts,
     isPending,
   } = useNewTransactionModalController();
-  const { closeNewTransactionModal } = useDashboard();
+  const { closeNewTransactionModal, newTransactionType } = useDashboard();
 
   return (
     <KeyboardAvoidingView
@@ -55,7 +55,7 @@ export function TransactionModalContent() {
           </Pressable>
           <View className="w-full bg-slate-50 p-4 absolute bottom-10 rounded-lg pb-4">
             <Text className="text-lg text-center font-bold">
-              Novas despesas
+              {newTransactionType == "INCOME" ? "Nova Receita" : "Nova Despesa"}
             </Text>
 
             <View className="mt-10 items-center">
